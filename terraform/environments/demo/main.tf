@@ -85,5 +85,15 @@ module "grafana" {
   tags = local.common_tags
 }
 
+module "guardduty" {
+  source = "../../modules/guardduty"
+  
+  name_prefix         = local.name_prefix
+  aws_region         = var.aws_region
+  enable_threat_intel = false
+  
+  tags = local.common_tags
+}
+
 # module "compute" { ... }
 # module "monitoring" { ... }

@@ -45,6 +45,21 @@ output "grafana_target_group_arn" {
   value       = module.networking.grafana_target_group_arn
 }
 
+output "guardduty_detector_id" {
+  description = "GuardDuty detector ID"
+  value       = module.guardduty.guardduty_detector_id
+}
+
+output "guardduty_findings_log_group" {
+  description = "GuardDuty findings log group"
+  value       = module.guardduty.findings_log_group
+}
+
+output "security_metrics_namespace" {
+  description = "Custom security metrics namespace"
+  value       = module.guardduty.custom_metrics_namespace
+}
+
 # TODO: Add these outputs when modules are created
 # output "grafana_url" {
 #   description = "URL of the Grafana instance"
