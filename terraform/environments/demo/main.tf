@@ -95,5 +95,13 @@ module "guardduty" {
   tags = local.common_tags
 }
 
-# module "compute" { ... }
-# module "monitoring" { ... }
+module "compute" {
+  source = "../../modules/compute"
+  
+  name_prefix        = local.name_prefix
+  vpc_id            = module.networking.vpc_id
+  public_subnet_ids = module.networking.public_subnet_ids
+  ssh_public_key    = var.ssh_public_key
+  
+  tags = local.common_tags
+}

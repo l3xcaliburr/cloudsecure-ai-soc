@@ -60,13 +60,17 @@ output "security_metrics_namespace" {
   value       = module.guardduty.custom_metrics_namespace
 }
 
-# TODO: Add these outputs when modules are created
-# output "grafana_url" {
-#   description = "URL of the Grafana instance"
-#   value       = module.grafana.grafana_url
-# }
+output "target_server_ip" {
+  description = "Target server public IP for attack testing"
+  value       = module.compute.target_public_ip
+}
 
-# output "monitoring_dashboard_url" {
-#   description = "URL of the monitoring dashboard"
-#   value       = module.monitoring.dashboard_url
-# } 
+output "attacker_server_ip" {
+  description = "Attacker server public IP"
+  value       = module.compute.attacker_public_ip
+}
+
+output "ssh_connection_command" {
+  description = "SSH command to connect to target server"
+  value       = "ssh -i ~/.ssh/cloudsecure-demo ec2-user@${module.compute.target_public_ip}"
+}
