@@ -143,3 +143,24 @@ resource "aws_cloudwatch_log_metric_filter" "guardduty_high_severity" {
     value     = "1"
   }
 }
+
+resource "aws_cloudwatch_log_resource_policy" "guardduty_logs_policy" {
+  policy_name = "${var.name_prefix}-guardduty-logs-policy"
+
+  policy_document = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "events.amazonaws.com"
+        }
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "${aws_cloudwatch_log_group.guardduty_findings.arn}:*"
+      }
+    ]
+  })
+}
