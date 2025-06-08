@@ -45,18 +45,46 @@ output "grafana_target_group_arn" {
   value       = module.networking.grafana_target_group_arn
 }
 
+# =============================================================================
+# GUARDDUTY OUTPUTS - AI-POWERED THREAT DETECTION
+# =============================================================================
+# GuardDuty deployed and active - AI-powered threat detection analyzing the environment
+
 output "guardduty_detector_id" {
-  description = "GuardDuty detector ID"
+  description = "GuardDuty detector ID - AI-powered threat detection service identifier"
   value       = module.guardduty.guardduty_detector_id
 }
 
+output "guardduty_detector_arn" {
+  description = "GuardDuty detector ARN - Full Amazon Resource Name for the detector"
+  value       = module.guardduty.guardduty_detector_arn
+}
+
 output "guardduty_findings_log_group" {
-  description = "GuardDuty findings log group"
+  description = "CloudWatch log group for GuardDuty findings - Central logging for security events"
   value       = module.guardduty.findings_log_group
 }
 
+output "guardduty_dashboard_url" {
+  description = "CloudWatch Dashboard URL for GuardDuty metrics visualization"
+  value       = "https://${var.aws_region}.console.aws.amazon.com/cloudwatch/home?region=${var.aws_region}#dashboards:name=${module.guardduty.cloudwatch_dashboard_name}"
+}
+
+output "security_monitoring_summary" {
+  description = "Security monitoring deployment summary"
+  value = {
+    status                    = "✅ GuardDuty deployed and active - AI-powered threat detection analyzing the environment"
+    detector_id              = module.guardduty.guardduty_detector_id
+    findings_log_group       = module.guardduty.findings_log_group
+    metrics_namespace        = module.guardduty.custom_metrics_namespace
+    high_severity_alarm      = module.guardduty.high_severity_alarm_name
+    findings_rate_alarm      = module.guardduty.findings_rate_alarm_name
+    dashboard_name           = module.guardduty.cloudwatch_dashboard_name
+  }
+}
+
 output "security_metrics_namespace" {
-  description = "Custom security metrics namespace"
+  description = "Custom security metrics namespace for CloudWatch"
   value       = module.guardduty.custom_metrics_namespace
 }
 
