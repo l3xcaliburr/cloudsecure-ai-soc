@@ -67,6 +67,10 @@ resource "aws_ecs_task_definition" "grafana" {
         {
           name  = "GF_AUTH_ANONYMOUS_ENABLED"
           value = "false"
+        },
+        {
+          name  = "GF_SERVER_ROOT_URL"
+          value = "http://${var.alb_dns_name}"
         }
       ]
 
