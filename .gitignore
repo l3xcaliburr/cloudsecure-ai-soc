@@ -464,3 +464,6 @@ site/
 # Keep important configuration templates
 !docker-compose.yml.template
 !.env.example 
+
+# Attack Scripts
+demo-attacks.sh

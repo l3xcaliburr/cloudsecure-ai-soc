@@ -20,3 +20,27 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "log_retention_days" {
+  description = "CloudWatch log retention period in days"
+  type        = number
+  default     = 14
+}
+
+variable "high_severity_threshold" {
+  description = "Threshold for high severity GuardDuty findings alarm"
+  type        = number
+  default     = 0
+}
+
+variable "findings_rate_threshold" {
+  description = "Threshold for GuardDuty findings rate alarm"
+  type        = number
+  default     = 10
+}
+
+variable "sns_topic_arn" {
+  description = "SNS topic ARN for CloudWatch alarms (optional)"
+  type        = string
+  default     = null
+}
