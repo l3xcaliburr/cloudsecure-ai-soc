@@ -70,7 +70,20 @@ module "security" {
   tags = local.common_tags
 }
 
-# Additional modules will be added as we build them
-# module "grafana" { ... }
+module "grafana" {
+  source = "../../modules/grafana"
+  
+  name_prefix            = local.name_prefix
+  aws_region            = var.aws_region
+  vpc_id                = module.networking.vpc_id
+  private_subnet_ids    = module.networking.private_subnet_ids
+  security_group_ids    = module.security.security_group_ids
+  target_group_arn      = module.networking.grafana_target_group_arn
+  alb_dns_name          = module.networking.alb_dns_name
+  grafana_admin_password = var.grafana_admin_password
+  
+  tags = local.common_tags
+}
+
 # module "compute" { ... }
 # module "monitoring" { ... }

@@ -36,4 +36,15 @@ output "web_acl_id" {
 output "web_acl_arn" {
   description = "ARN of the WAF Web ACL"
   value       = aws_wafv2_web_acl.main.arn
+}
+
+output "security_group_ids" {
+  description = "Map of security group IDs"
+  value = {
+    web     = aws_security_group.web.id
+    ec2     = aws_security_group.ec2.id
+    grafana = aws_security_group.grafana.id
+    rds     = aws_security_group.rds.id
+    lambda  = aws_security_group.lambda.id
+  }
 } 

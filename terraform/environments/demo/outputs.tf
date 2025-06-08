@@ -29,6 +29,22 @@ output "web_acl_arn" {
   value       = module.security.web_acl_arn
 }
 
+# Add these outputs
+output "grafana_url" {
+  description = "URL to access Grafana dashboard"
+  value       = "http://${module.networking.alb_dns_name}"
+}
+
+output "alb_dns_name" {
+  description = "ALB DNS name"
+  value       = module.networking.alb_dns_name
+}
+
+output "grafana_target_group_arn" {
+  description = "Grafana target group ARN"
+  value       = module.networking.grafana_target_group_arn
+}
+
 # TODO: Add these outputs when modules are created
 # output "grafana_url" {
 #   description = "URL of the Grafana instance"

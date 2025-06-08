@@ -181,3 +181,59 @@ resource "aws_iam_role_policy" "flow_log" {
     ]
   })
 }
+
+# Application Load Balancer for Grafana
+resource "aws_lb" "grafana" {
+  name               = "${var.name_prefix}-grafana-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb.id]
+  subnets            = aws_subnet.public[*].id
+
+  enable_deletion_protection = false
+
+  tags = merge(var.tags, {
+    Name = "${var.name_prefix}-grafana-alb"
+  })
+}
+
+# ALB Target Group for Grafana
+resource "aws_lb_target_group" "grafana" {
+  name        = "${var.name_prefix}-grafana-tg"
+  port        = 3000
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.main.id
+  target_type = "ip"
+
+  health_check {
+    enabled             = true
+    healthy_threshold   = 2
+    interval            = 30
+    matcher             = "200"
+    path                = "/api/health"
+    port                = "traffic-port"
+    protocol            = "HTTP"
+    timeout             = 5
+    unhealthy_threshold = 2
+  }
+
+  tags = merge(var.tags, {
+    Name = "${var.name_prefix}-grafana-tg"
+  })
+}
+
+# ALB Listener
+resource "aws_lb_listener" "grafana" {
+  load_balancer_arn = aws_lb.grafana.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.grafana.arn
+  }
+
+  tags = merge(var.tags, {
+    Name = "${var.name_prefix}-grafana-listener"
+  })
+}
