@@ -19,7 +19,7 @@ variable "project_name" {
 variable "owner_email" {
   description = "Email of the project owner"
   type        = string
-  default     = "alex@rotordev.com"
+  default     = "your-email@example.com"
 }
 
 variable "vpc_cidr" {

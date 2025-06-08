@@ -465,5 +465,10 @@ site/
 !docker-compose.yml.template
 !.env.example 
 
-# Attack Scripts
-demo-attacks.sh
+# Demo and Attack Scripts (uncomment next line if you want to exclude attack demo)
+# demo-attacks.sh
+
+# Terraform variable files with sensitive data
+terraform.tfvars
+*.tfvars
+!terraform.tfvars.example

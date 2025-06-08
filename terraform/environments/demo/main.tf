@@ -2,10 +2,10 @@ terraform {
   required_version = ">= 1.0"
   
     backend "s3" {
-        bucket         = "cloudsecure-ai-soc-terraform-state-21a9fbd7"
+        bucket         = "your-terraform-state-bucket"
         key            = "demo/terraform.tfstate"
         region         = "us-east-1"
-        dynamodb_table = "cloudsecure-ai-soc-terraform-lock"
+        dynamodb_table = "your-terraform-lock-table"
         encrypt        = true
     }
 
